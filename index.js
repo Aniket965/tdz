@@ -1,10 +1,12 @@
+#!/usr/local/bin/node
+
 const chalk = require("chalk");
 const argv = require("yargs").argv;
 const jsonfile = require("jsonfile");
 const path = require("path");
 const log = require("emojifylogs").log;
 const fileExists = require("file-exists");
-let filepath = path.join(__dirname, "todos.json");
+let filepath = path.join(process.cwd(), "todos.json");
 
 /**
  *  Initializes the todolist in the Project

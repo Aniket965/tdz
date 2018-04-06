@@ -1,8 +1,11 @@
 {
   "name": "tdz",
-  "version": "0.0.0",
+  "version": "0.0.4",
   "description": "Project based todo list cli tool",
   "main": "index.js",
+  "bin": {
+    "tdz": "index.js"
+  },
   "scripts": {
     "test": "test"
   },
