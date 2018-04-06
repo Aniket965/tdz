@@ -21,5 +21,12 @@
   "bugs": {
     "url": "https://github.com/Aniket965/tdz/issues"
   },
-  "homepage": "https://github.com/Aniket965/tdz#readme"
+  "homepage": "https://github.com/Aniket965/tdz#readme",
+  "dependencies": {
+    "chalk": "^2.3.2",
+    "emojifylogs": "0.0.2",
+    "file-exists": "^5.0.1",
+    "jsonfile": "^4.0.0",
+    "yargs": "^11.0.0"
+  }
 }
