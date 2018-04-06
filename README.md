@@ -1,6 +1,6 @@
 # TDZ
 
-> [NPM](https://www.npmjs.com/package/tdz)
+> Project and terminal based todolist cli tool. [NPM](https://www.npmjs.com/package/tdz)
 ### Installing
 
 ```sh
