@@ -1,0 +1,25 @@
+{
+  "name": "tdz",
+  "version": "0.0.0",
+  "description": "Project based todo list cli tool",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Aniket965/tdz.git"
+  },
+  "keywords": [
+    "todo",
+    "todolist",
+    "cli",
+    "tool"
+  ],
+  "author": "aniket965",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Aniket965/tdz/issues"
+  },
+  "homepage": "https://github.com/Aniket965/tdz#readme"
+}
