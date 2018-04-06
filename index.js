@@ -6,19 +6,13 @@ const log = require("emojifylogs").log;
 const fileExists = require("file-exists");
 let filepath = path.join(__dirname, "todos.json");
 
-// TODO: init
-// TODO: show
-// TODO: add
-// TODO: remove
-// TODO: drop
-
 /**
  *  Initializes the todolist in the Project
  */
 const init = () => {
   let tasks = {
     tasks: [],
-    lastindex:0
+    lastindex: 0
   };
 
   fileExists(filepath, (err, exists) => {
@@ -40,24 +34,83 @@ const init = () => {
 
 const add = todo => {
   fileExists(filepath, (err, exists) => {
-    if (err) log.error(err)
+    if (err) log.error(err);
     else {
       if (exists) {
-        let newtodos = []
-        let lastindex = 0
-        jsonfile.readFile(filepath,(err,todos)=>{
-          lastindex = todos.lastindex + 1
-          newtodos = todos.tasks
-          newtodos.push({todo:todo,id:lastindex})
+        let newtodos = [];
+        let lastindex = 0;
+        jsonfile.readFile(filepath, (err, todos) => {
+          lastindex = todos.lastindex + 1;
+          newtodos = todos.tasks;
+          newtodos.push({ todo: todo, id: lastindex });
           let tasks = {
             tasks: newtodos,
             lastindex
           };
-          jsonfile.writeFile(filepath, tasks,{spaces:2},()=>{
-            log.info(`Added ${chalk.cyan(todo)} to todolist`)
-          })
-        })
+          jsonfile.writeFile(filepath, tasks, { spaces: 2 }, () => {
+            log.info(
+              `Added ${chalk.cyan(todo)} to todolist with id ${chalk.green(
+                lastindex
+              )}`
+            );
+          });
+        });
+      } else {
+        log.error(todosNotfound)
+      }
+    }
+  });
+};
 
+const rm = (id, a = false) => {
+  fileExists(filepath, (err, exists) => {
+    if (err) log.error(err);
+    else {
+      if (exists) {
+        if (!a) {
+          let newtodos = [];
+          jsonfile.readFile(filepath, (err, todos) => {
+            newtodos = todos.tasks;
+            newtodos = newtodos.filter(todo => {
+              if (todo.id === id) return false;
+              else return true;
+            });
+            let tasks = {
+              tasks: newtodos,
+              lastindex: todos.lastindex
+            };
+            jsonfile.writeFile(filepath, tasks, { spaces: 2 }, () => {
+              log.info(`removed todos with id ${chalk.red(id)} to todolist`);
+            });
+          });
+        } else {
+          let tasks = {
+            tasks: [],
+            lastindex: 0
+          };
+          jsonfile.writeFile(filepath, tasks, { spaces: 2 }, () => {
+            log.info(`removed all tasks`);
+          });
+        }
+      } else {
+        log.error(todosNotfound)
+      }
+    }
+  });
+};
+
+const show = () => {
+  fileExists(filepath, (err, exists) => {
+    if (err) log.error(err);
+    else {
+      if (exists) {
+        jsonfile.readFile(filepath, (err, todos) => {
+          todos.tasks.forEach(task => {
+            log.info(` ${chalk.green(task.id)} -> ${chalk.cyan(task.todo)} `);
+          });
+        });
+      } else {
+        log.error(todosNotfound)
       }
     }
   });
@@ -86,12 +139,21 @@ const reinitText = `${chalk.cyan(
 )} already exists if you want to clear task try:
 ${chalk.cyan("tdz")} rm -a
 `;
+
+const todosNotfound = `${chalk.cyan("todos.json")} not found try typing:
+${chalk.cyan("tdz init")}
+`
+
 function main() {
   if (argv._.indexOf("init") === 0) {
     init();
   } else if (argv._.indexOf("add") === 0) {
-    add(argv._[1])
+    add(argv._[1]);
+  } else if (argv._.indexOf("rm") === 0) {
+    if (argv.a === true) rm("", true);
+    else rm(argv._[1]);
   } else {
+    show()
   }
 }
-main()
+main();
