@@ -1,5 +1,5 @@
-# react-clean-drawer
-> Simple and clean Drawer Component for React.js
+# TDZ
+
 > [NPM](https://www.npmjs.com/package/tdz)
 ### Installing
 
